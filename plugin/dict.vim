@@ -1,6 +1,6 @@
 " vim-dict - The Dict client for Vim
 " Maintainer:   Szymon Wrozynski
-" Version:      1.0
+" Version:      1.0.0
 "
 " Installation:
 " Place in ~/.vim/plugin/dict.vim or in case of Pathogen:
@@ -34,7 +34,7 @@ if !exists("g:dict_host")
     let g:dict_host = "dict://dict.org"
 endif
 
-command! -nargs=* Dict :call s:dict(g:dict_default_database, "<args>")
+command! -nargs=? Dict :call s:dict(g:dict_default_database, "<args>")
 command! -nargs=+ DictCustom :call s:dict_custom("<args>")
 command! -nargs=? -range DictSelection :call s:dict_selection("<args>")
 
