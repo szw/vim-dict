@@ -1,6 +1,6 @@
 " vim-dict - The Dict client for Vim
 " Maintainer:   Szymon Wrozynski
-" Version:      1.0.0
+" Version:      1.1.0
 "
 " Installation:
 " Place in ~/.vim/plugin/dict.vim or in case of Pathogen:
@@ -22,23 +22,19 @@ endif
 
 let g:loaded_dict = 1
 
-if !exists("g:dict_default_database")
-    let g:dict_default_database = "all"
+if !exists("g:dict_hosts")
+    let g:dict_hosts = [["dict.org", ["all"]]]
 endif
 
 if !exists("g:dict_leave_pw")
     let g:dict_leave_pw = 0
 endif
 
-if !exists("g:dict_host")
-    let g:dict_host = "dict://dict.org"
-endif
+command! -nargs=? Dict :call s:dict("<args>")
+command! DictShowDb :call s:dict_show_db()
+command! -range DictSelection :call s:dict(getline("'<")[getpos("'<")[2] - 1:getpos("'>")[2] - 1])
 
-command! -nargs=? Dict :call s:dict(g:dict_default_database, "<args>")
-command! -nargs=+ DictCustom :call s:dict_custom("<args>")
-command! -nargs=? -range DictSelection :call s:dict_selection("<args>")
-
-fun! s:dict(dictionary, ...)
+fun! s:dict(...)
     let word = a:0 > 0 ? a:1 : ""
 
     if empty(word)
@@ -47,10 +43,14 @@ fun! s:dict(dictionary, ...)
 
     let word = "\"" . substitute(tolower(word), '^\s*\(.\{-}\)\s*$', '\1', '') . "\""
 
-    silent! exe "noautocmd botright pedit Dict:" . a:dictionary
+    silent! exe "noautocmd botright pedit Dict"
     noautocmd wincmd P
     set buftype=nofile
-    exe "noautocmd r! curl -s " . g:dict_host . "/d:" . word . ":" . a:dictionary
+    for host in g:dict_hosts
+        for db in host[1]
+            silent! exe "noautocmd r! curl -s dict://" . host[0] . "/d:" . word . ":" . db
+        endfor
+    endfor
     silent! exe "%s///g"
     silent! exe "%s/^151 //g"
     silent! exe "%s/^153 //g"
@@ -59,7 +59,7 @@ fun! s:dict(dictionary, ...)
     silent! exe "1d_"
 
     if line("$") == 1
-        silent! exe "normal a Nothing found for " . word . " (dictionary: " . a:dictionary . ")"
+        silent! exe "normal a Nothing found for " . word
     endif
 
     if g:dict_leave_pw
@@ -67,13 +67,24 @@ fun! s:dict(dictionary, ...)
     endif
 endfun
 
-fun! s:dict_custom(word_with_d)
-    let lst = split(a:word_with_d, " ")
-    call s:dict(lst[0], join(lst[1:], " "))
-endfun
+fun! s:dict_show_db()
+    silent! exe "noautocmd botright pedit Dict:show:db"
+    noautocmd wincmd P
+    set buftype=nofile
+    for host in g:dict_hosts
+        silent! exe "normal I--------------------------------------------------------------------------------\r"
+        silent! exe "normal IServer: " . host[0] . "\r"
+        silent! exe "normal I--------------------------------------------------------------------------------\r"
+        silent! exe "noautocmd r! curl -s dict://" . host[0] . "/show:db"
+    endfor
+    silent! exe "%s///g"
+    silent! exe "%s/^110 //g"
+    silent! exe "%s/^\.$//g"
+    silent! exe "g/^\s*[0-9][0-9][0-9]/d_"
+    silent! exe "g/^$/d_"
+    silent! exe "0"
 
-fun! s:dict_selection(dictionary)
-    let dictionary = empty(a:dictionary) ? g:dict_default_database : a:dictionary
-    let word = getline("'<")[getpos("'<")[2] - 1:getpos("'>")[2] - 1]
-    call s:dict(dictionary, word)
+    if g:dict_leave_pw
+        noautocmd wincmd p
+    endif
 endfun
