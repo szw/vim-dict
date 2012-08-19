@@ -82,7 +82,7 @@ There are just a few global variables (options) you may set in the *.vimrc* file
 
   Example:
 
-        let g:dict\_leave\_pw = 0
+        let g:dict_leave_pw = 0
 
 
 Useful tips
