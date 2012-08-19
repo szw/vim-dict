@@ -26,7 +26,7 @@ The <code>Dict</code> command uses the default database. It is stored
 in the <code>g:vim\_dict\_default\_database</code> global variable.
 By default it is set to <code>"all"</code>
 
-If you want use a different one use <code>DictCustom</code> command:
+If you want to choose a different one use <code>DictCustom</code> command:
 
     :DictCustom wn hello
     :DictCustom english start up
