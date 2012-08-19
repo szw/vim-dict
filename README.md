@@ -162,7 +162,7 @@ On Ubuntu you might want to add system dictionary to Vim:
 
 This will enable the dictionary in the insert mode (CTRL-X CTRL-K). Additionaly it could
 be useful to add the dictionary to the standard word completions (CTRL-N...) for text and
-Markdown file types. To do this test the <code>complete</code> to include *k* value:
+Markdown file types. To do this set the <code>complete</code> to include *k* value:
 
     au FileType text,markdown setlocal complete+=k
 
