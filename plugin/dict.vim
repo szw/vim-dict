@@ -50,9 +50,13 @@ fun! s:dict(dictionary, ...)
     silent! exe "noautocmd botright pedit Dict:" . a:dictionary
     noautocmd wincmd P
     set buftype=nofile
-    exe "noautocmd r! curl " . g:dict_host . "/d:" . word . ":" . a:dictionary . " | grep -v ^[0-9] || :"
+    exe "noautocmd r! curl -s " . g:dict_host . "/d:" . word . ":" . a:dictionary
     silent! exe "%s///g"
-    silent! exe "1,4d_"
+    silent! exe "%s/^151 //g"
+    silent! exe "%s/^153 //g"
+    silent! exe "%s/^\.$/--------------------------------------------------------------------------------/g"
+    silent! exe "g/^[0-9][0-9][0-9]/d_"
+    silent! exe "1d_"
 
     if line("$") == 1
         silent! exe "normal a Nothing found for " . word . " (dictionary: " . a:dictionary . ")"
