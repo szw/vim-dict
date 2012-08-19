@@ -1,8 +1,8 @@
 vim-dict
 ========
 
-Vim-dict is a dict client. It uses **curl** to connect to
-dict servers, so make sure you have **curl** installed.
+Vim-dict is a dict client. It uses **curl** to connect to dict servers, so make sure you
+have **curl** installed.
 
 
 Installation
@@ -22,9 +22,9 @@ To lookup a word (or words) in the dictionary database use <code>Dict</code> com
     :Dict hello
     :Dict start up
 
-The <code>Dict</code> command uses the default database. It is stored
-in the <code>g:dict\_default\_database</code> global variable.
-By default it is set to <code>"all"</code>
+The <code>Dict</code> command uses the default database. It is stored in the
+<code>g:dict\_default\_database</code> global variable.  By default it is set to
+<code>"all"</code>
 
 If you want to choose a different one use <code>DictCustom</code> command:
 
@@ -33,9 +33,8 @@ If you want to choose a different one use <code>DictCustom</code> command:
 
 By the way, <code>wn</code> stands for the WordNet dictionary.
 
-<code>Dict</code> and <code>DictCustom</code> commands can use the
-current word under the cursor. Just move the cursor on a word and
-type in the command line:
+<code>Dict</code> and <code>DictCustom</code> commands can use the current word under the
+cursor. Just move the cursor on a word and type in the command line:
 
     :Dict
     :DictCustom wn
@@ -142,8 +141,8 @@ There are just a few global variables (options) you may set in the *.vimrc* file
 
 * <code>g:dict\_leave\_pw</code>
 
-  If set to <code>1</code> dict leaves the preview window (the focus remains on
-  the current window). By default it is set to <code>0</code>.
+  If set to <code>1</code> dict leaves the preview window (the focus remains on the
+  current window). By default it is set to <code>0</code>.
 
   Example: <code>let g:dict\_leave\_pw = 0</code>
 
@@ -154,8 +153,23 @@ There are just a few global variables (options) you may set in the *.vimrc* file
   Example: <code>let g:dict\_host = "dict://dict.org"</code>
 
 
+Useful tips
+-----------
+
+On Ubuntu you might want to add system dictionary to Vim:
+
+    set dictionary+=/usr/share/dict/words
+
+This will enable the dictionary in the insert mode (CTRL-X CTRL-K). Additionaly it could
+be useful to add the dictionary to the standard word completions (CTRL-N...) for text and
+Markdown file types. To do this test the <code>complete</code> to include *k* value:
+
+    au FileType text,markdown setlocal complete+=k
+
+
 License
 -------
+
 Copyright &copy; 2012 Szymon Wrozynski. Distributed under the same terms as Vim itself.
 See <code>:help license</code>
 
