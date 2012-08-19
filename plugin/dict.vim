@@ -22,19 +22,19 @@ endif
 
 let g:loaded_dict = 1
 
-if !exists("g:vim_dict_default_database")
-    let g:vim_dict_default_database = "all"
+if !exists("g:dict_default_database")
+    let g:dict_default_database = "all"
 endif
 
-if !exists("g:vim_dict_leave_pw")
-    let g:vim_dict_leave_pw = 0
+if !exists("g:dict_leave_pw")
+    let g:dict_leave_pw = 0
 endif
 
-if !exists("g:vim_dict_host")
-    let g:vim_dict_host = "dict://dict.org"
+if !exists("g:dict_host")
+    let g:dict_host = "dict://dict.org"
 endif
 
-command! -nargs=* Dict :call s:dict(g:vim_dict_default_database, "<args>")
+command! -nargs=* Dict :call s:dict(g:dict_default_database, "<args>")
 command! -nargs=+ DictCustom :call s:dict_custom("<args>")
 command! -nargs=? -range DictSelection :call s:dict_selection("<args>")
 
@@ -50,7 +50,7 @@ fun! s:dict(dictionary, ...)
     silent! exe "noautocmd botright pedit Dict:" . a:dictionary
     noautocmd wincmd P
     set buftype=nofile
-    exe "noautocmd r! curl " . g:vim_dict_host . "/d:" . word . ":" . a:dictionary . " | grep -v ^[0-9] || :"
+    exe "noautocmd r! curl " . g:dict_host . "/d:" . word . ":" . a:dictionary . " | grep -v ^[0-9] || :"
     silent! exe "%s///g"
     silent! exe "1,4d_"
 
@@ -58,7 +58,7 @@ fun! s:dict(dictionary, ...)
         silent! exe "normal a Nothing found for " . word . " (dictionary: " . a:dictionary . ")"
     endif
 
-    if g:vim_dict_leave_pw
+    if g:dict_leave_pw
         noautocmd wincmd p
     endif
 endfun
@@ -69,7 +69,7 @@ fun! s:dict_custom(word_with_d)
 endfun
 
 fun! s:dict_selection(dictionary)
-    let dictionary = empty(a:dictionary) ? g:vim_dict_default_database : a:dictionary
+    let dictionary = empty(a:dictionary) ? g:dict_default_database : a:dictionary
     let word = getline("'<")[getpos("'<")[2] - 1:getpos("'>")[2] - 1]
     call s:dict(dictionary, word)
 endfun
