@@ -30,6 +30,10 @@ if !exists("g:dict_leave_pw")
     let g:dict_leave_pw = 0
 endif
 
+if !exists("g:dict_connect_timeout")
+    let g:dict_connect_timeout = 30
+endif
+
 command! -nargs=? Dict :call s:dict("<args>")
 command! DictShowDb :call s:dict_show_db()
 command! -range DictSelection :call s:dict(getline("'<")[getpos("'<")[2] - 1:getpos("'>")[2] - 1])
@@ -48,7 +52,8 @@ fun! s:dict(...)
     set buftype=nofile
     for host in g:dict_hosts
         for db in host[1]
-            silent! exe "noautocmd r! curl -s --connect-timeout 5 dict://" . host[0] . "/d:" . word . ":" . db
+            "silent! echo host[0] . ":" . db
+            silent! exe "noautocmd r! curl -s --connect-timeout " . g:dict_connect_timeout . " dict://" . host[0] . "/d:" . word . ":" . db
         endfor
     endfor
     silent! exe "%s///g"
@@ -75,7 +80,7 @@ fun! s:dict_show_db()
         silent! exe "normal I--------------------------------------------------------------------------------\r"
         silent! exe "normal IServer: " . host[0] . "\r"
         silent! exe "normal I--------------------------------------------------------------------------------\r"
-        silent! exe "noautocmd r! curl -s --connect-timeout 5 dict://" . host[0] . "/show:db"
+        silent! exe "noautocmd r! curl -s --connect-timeout " . g:dict_connect_timeout . " dict://" . host[0] . "/show:db"
     endfor
     silent! exe "%s///g"
     silent! exe "%s/^110 //g"
