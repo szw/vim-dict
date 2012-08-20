@@ -48,7 +48,7 @@ fun! s:dict(...)
     set buftype=nofile
     for host in g:dict_hosts
         for db in host[1]
-            silent! exe "noautocmd r! curl -s dict://" . host[0] . "/d:" . word . ":" . db
+            silent! exe "noautocmd r! curl -s --connect-timeout 5 dict://" . host[0] . "/d:" . word . ":" . db
         endfor
     endfor
     silent! exe "%s///g"
@@ -75,7 +75,7 @@ fun! s:dict_show_db()
         silent! exe "normal I--------------------------------------------------------------------------------\r"
         silent! exe "normal IServer: " . host[0] . "\r"
         silent! exe "normal I--------------------------------------------------------------------------------\r"
-        silent! exe "noautocmd r! curl -s dict://" . host[0] . "/show:db"
+        silent! exe "noautocmd r! curl -s --connect-timeout 5 dict://" . host[0] . "/show:db"
     endfor
     silent! exe "%s///g"
     silent! exe "%s/^110 //g"
