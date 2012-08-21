@@ -1,8 +1,8 @@
 vim-dict
 ========
 
-**vim-dict** is a dict client. It uses **curl** to connect to dict servers, so make sure you
-have **curl** installed.
+**vim-dict** is a dict client. It uses **curl** to connect to dict servers, so make sure
+you have **curl** installed.
 
 
 Installation
@@ -17,22 +17,20 @@ Place in *~/.vim/plugin/dict.vim* or in case of Pathogen:
 Usage
 -----
 
-To lookup a word (or words) in the dictionary use <code>Dict</code> command:
+To lookup a word (or words) in the dictionary use `Dict` command:
 
     :Dict hello
     :Dict start up
 
-The <code>Dict</code> command uses hosts and databases defined in the
-<code>g:dict\_hosts</code> global list. By default it is set to <code>[["dict.org",
-["all"]]]</code> (the format will be explained a bit later).
+The `Dict` command uses hosts and databases defined in the `g:dict_hosts` global list. By
+default it is set to `[["dict.org", ["all"]]]` (the format will be explained a bit later).
 
-<code>Dict</code> command can use a current word under the cursor. Just move the cursor to
-a word and type in the command line:
+`Dict` command can use a current word under the cursor. Just move the cursor to a word and
+type in the command line:
 
     :Dict
 
-You can also select words in the visual mode with help of the <code>DictSelection</code>
-command:
+You can also select words in the visual mode with help of the `DictSelection` command:
 
     :DictSelection
 
@@ -42,11 +40,11 @@ Configuration
 
 There are just a few global variables (options) you may set in the *.vimrc* file.
 
-* <code>g:dict\_hosts</code>
+* `g:dict_hosts`
 
-  The most important one is a list <code>g:dict\_hosts</code> mentioned earlier. It
-  combines hosts/databases used by **vim-dict**. The list entries are lists themselves and
-  share the following format:
+  The most important one is a list `g:dict_hosts` mentioned earlier. It combines
+  hosts/databases used by **vim-dict**. The list entries are lists themselves and share
+  the following format:
 
         ["host_name", ["database1", "database2", ...]]
 
@@ -69,20 +67,37 @@ There are just a few global variables (options) you may set in the *.vimrc* file
             \["dict.mova.org", []]
         \]
 
-  Then save and reload *.vimrc*, perform <code>DictShowDb</code> and yank-paste the
-  databases you want :).
+  Then save and reload *.vimrc*, perform `DictShowDb` and yank-paste the databases you
+  want :).
 
   The list of DICT servers can be found on the internet, e.g.
   [here](http://luetzschena-stahmeln.de/dictd/index.php).
 
-* <code>g:dict\_leave\_pw</code>
+* `g:dict_leave_pw`
 
-  If set to <code>1</code> **vim-dict** leaves the preview window (the focus remains on
-  the current window). By default it is set to <code>0</code>.
+  If set to `1` **vim-dict** leaves the preview window (the focus remains on the current
+  window). By default it is set to `0`.
 
   Example:
 
         let g:dict_leave_pw = 0
+
+* `g:dict_curl_command` [*][1]
+
+  This variable holds the curl command to be fired by `Dict` function. You will find it
+  handy if **curl** is not on your `$PATH` environment variable. By default it is set to
+  `"curl"`.
+
+        let g:dict_curl_command = "curl"
+
+
+* `g:dict_curl_options`[*][1]
+
+  Sometimes you might want to add additional options to the curl invocation, e.g.
+  additonal proxy settings. By default it defines only the connection timeout. Notice, the
+  option `-s` (silent) is always present regardless of this variable.
+
+        let g:dict_curl_options = "--connect-timeout 30"
 
 
 Useful tips
@@ -94,7 +109,7 @@ On Ubuntu you might want to add system dictionary to Vim:
 
 This will enable the dictionary in the insert mode (CTRL-X CTRL-K). Additionaly it could
 be useful to add the dictionary to the standard word completions (CTRL-N...) for text and
-Markdown file types. To do this set the <code>complete</code> to include *k* value:
+Markdown file types. To do this set the `complete` to include *k* value:
 
     au FileType text,markdown setlocal complete+=k
 
@@ -103,5 +118,6 @@ License
 -------
 
 Copyright &copy; 2012 Szymon Wrozynski. Distributed under the same terms as Vim itself.
-See <code>:help license</code>
+See `:help license`
 
+[1]: https://github.com/szw/vim-dict/pull/1  "Thanks to Ingo Karkat"

@@ -39,8 +39,8 @@ if !exists("g:dict_leave_pw")
 endif
 
 command! -nargs=? Dict :call s:dict("<args>")
-command! DictShowDb :call s:dict_show_db()
-command! -range DictSelection :call s:dict(getline("'<")[getpos("'<")[2] - 1:getpos("'>")[2] - 1])
+command! -nargs=0 DictShowDb :call s:dict_show_db()
+command! -nargs=0 -range DictSelection :call s:dict(getline("'<")[getpos("'<")[2] - 1:getpos("'>")[2] - 1])
 
 fun! s:dict(...)
     let word = a:0 > 0 ? a:1 : ""
