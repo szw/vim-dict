@@ -52,7 +52,7 @@ fun! s:dict(...)
     let word = substitute(tolower(word), '^\s*\(.\{-}\)\s*$', '\1', '')
     let quoted_word = "\"" . word . "\""
 
-    silent! | redraw! | echo "Perform lookup for" quoted_word "- please wait..."
+    silent! | redraw | echo "Perform lookup for" quoted_word "- please wait..."
 
     silent! exe "noautocmd botright pedit Dict:'" . word . "'"
     noautocmd wincmd P
