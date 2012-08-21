@@ -82,11 +82,13 @@ There are just a few global variables (options) you may set in the *.vimrc* file
 
         let g:dict_leave_pw = 0
 
-* `g:dict_curl_command` [*][1]
+* `g:dict_curl_command`[*][1]
 
   This variable holds the curl command to be fired by `Dict` function. You will find it
   handy if **curl** is not on your `$PATH` environment variable. By default it is set to
   `"curl"`.
+
+  Example:
 
         let g:dict_curl_command = "curl"
 
@@ -96,6 +98,8 @@ There are just a few global variables (options) you may set in the *.vimrc* file
   Sometimes you might want to add additional options to the curl invocation, e.g.
   additonal proxy settings. By default it defines only the connection timeout. Notice, the
   option `-s` (silent) is always present regardless of this variable.
+
+  Example:
 
         let g:dict_curl_options = "--connect-timeout 30"
 
