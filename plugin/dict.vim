@@ -1,6 +1,6 @@
 " vim-dict - The Dict client for Vim
 " Maintainer:   Szymon Wrozynski
-" Version:      1.1.1
+" Version:      1.2.0
 "
 " Installation:
 " Place in ~/.vim/plugin/dict.vim or in case of Pathogen:
@@ -38,21 +38,20 @@ if !exists("g:dict_leave_pw")
     let g:dict_leave_pw = 0
 endif
 
-command! -nargs=? Dict :call s:dict("<args>")
+command! -nargs=? -range Dict :call s:dict("<args>")
 command! -nargs=0 DictShowDb :call s:dict_show_db()
-command! -nargs=0 -range DictSelection :call s:dict(getline("'<")[getpos("'<")[2] - 1:getpos("'>")[2] - 1])
 
-fun! s:dict(...)
-    let word = a:0 > 0 ? a:1 : ""
-
-    if empty(word)
-        let word = expand("<cword>")
+fun! s:dict(word)
+    if (getpos('.') == getpos("'<")) && empty(a:word)
+        let word = getline("'<")[getpos("'<")[2] - 1:getpos("'>")[2] - 1]
+    else
+        let word = empty(a:word) ? expand("<cword>") : a:word
     endif
 
     let word = substitute(tolower(word), '^\s*\(.\{-}\)\s*$', '\1', '')
     let quoted_word = "\"" . word . "\""
 
-    silent! | redraw | echo "Perform lookup for" quoted_word "- please wait..."
+    silent! | redraw | echo "Performing lookup for" quoted_word "- please wait..."
 
     silent! exe "noautocmd botright pedit Dict:'" . word . "'"
     noautocmd wincmd P

@@ -30,10 +30,7 @@ the command line:
 
     :Dict
 
-You can also select words in the visual mode with help of the `DictSelection` command:
-
-    :DictSelection
-
+The same works on selection - just select multiple words in the Visual mode.
 
 Configuration
 -------------
