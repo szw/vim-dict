@@ -38,7 +38,7 @@ if !exists("g:dict_leave_pw")
     let g:dict_leave_pw = 0
 endif
 
-command! -nargs=? -range Dict :call s:dict("<args>")
+command! -nargs=? -range Dict :call s:dict(<q-args>)
 command! -nargs=0 DictShowDb :call s:dict_show_db()
 
 fun! s:dict(word)
