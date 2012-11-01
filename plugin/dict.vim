@@ -73,6 +73,8 @@ fun! s:dict(word)
         silent! exe "normal a Nothing found for" quoted_word
     endif
 
+    setlocal nomodifiable
+
     if g:dict_leave_pw
         noautocmd wincmd p
     endif
@@ -97,6 +99,8 @@ fun! s:dict_show_db()
     silent! exe "g/^\s*[0-9][0-9][0-9]/d_"
     silent! exe "g/^$/d_"
     silent! exe "0"
+
+    setlocal nomodifiable
 
     if g:dict_leave_pw
         noautocmd wincmd p
