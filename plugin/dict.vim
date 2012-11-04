@@ -55,6 +55,7 @@ fun! s:dict(word)
 
     silent! exe "noautocmd botright pedit Dict:'" . word . "'"
     noautocmd wincmd P
+    setlocal modifiable
     setlocal buftype=nofile ff=dos
 
     for host in g:dict_hosts
@@ -85,6 +86,7 @@ fun! s:dict_show_db()
 
     silent! exe "noautocmd botright pedit Dict:show:db"
     noautocmd wincmd P
+    setlocal modifiable
     set buftype=nofile ff=dos
 
     for host in g:dict_hosts
