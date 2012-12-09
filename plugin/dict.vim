@@ -75,6 +75,7 @@ fun! s:dict(word)
     endif
 
     setlocal nomodifiable
+    nnoremap <buffer><silent> q :pc<CR>
 
     if g:dict_leave_pw
         noautocmd wincmd p
@@ -103,6 +104,7 @@ fun! s:dict_show_db()
     silent! exe "0"
 
     setlocal nomodifiable
+    nnoremap <buffer><silent> q :pc<CR>
 
     if g:dict_leave_pw
         noautocmd wincmd p
