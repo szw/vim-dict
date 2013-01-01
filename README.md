@@ -31,6 +31,10 @@ The `Dict` command uses hosts and databases defined in the `g:dict_hosts` global
 
 The same works on selection - just select multiple words in the Visual mode.
 
+The `:Dict` command will open a preview window. To close that window you may run `:pc`, or just hit
+`q` if the Dict window is the active one.
+
+
 Configuration
 -------------
 
@@ -55,7 +59,7 @@ There are just a few global variables (options) you may set in the *.vimrc* file
 
         :DictShowDb
 
-  You can even open your .vimrc and provide some host urls only:
+  You can even open your *.vimrc* and provide some host urls only:
 
         let g:dict_hosts = [
             \["dict.org", []],

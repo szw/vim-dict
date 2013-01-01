@@ -1,6 +1,6 @@
 " vim-dict - The Dict client for Vim
 " Maintainer:   Szymon Wrozynski
-" Version:      1.2.0
+" Version:      1.2.1
 "
 " Installation:
 " Place in ~/.vim/plugin/dict.vim or in case of Pathogen:
