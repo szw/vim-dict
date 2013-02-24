@@ -71,7 +71,7 @@ fun! s:dict(word)
     silent! exe "1d_"
 
     if line("$") == 1
-        silent! exe "normal a Nothing found for" quoted_word
+        silent! exe "normal! a Nothing found for" quoted_word
     endif
 
     setlocal nomodifiable
@@ -91,9 +91,9 @@ fun! s:dict_show_db()
     set buftype=nofile ff=dos
 
     for host in g:dict_hosts
-        silent! exe "normal I--------------------------------------------------------------------------------\r"
-        silent! exe "normal IServer: " . host[0] . "\r"
-        silent! exe "normal I--------------------------------------------------------------------------------\r"
+        silent! exe "normal! I--------------------------------------------------------------------------------\r"
+        silent! exe "normal! IServer: " . host[0] . "\r"
+        silent! exe "normal! I--------------------------------------------------------------------------------\r"
         silent! exe "noautocmd r!" g:dict_curl_command "-s" g:dict_curl_options "dict://" . host[0] . "/show:db"
     endfor
 
