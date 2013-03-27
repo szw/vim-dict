@@ -57,6 +57,7 @@ fun! s:dict(word)
     noautocmd wincmd P
     setlocal modifiable
     setlocal buftype=nofile ff=dos
+    setlocal nobuflisted
 
     for host in g:dict_hosts
         for db in host[1]
@@ -75,7 +76,7 @@ fun! s:dict(word)
     endif
 
     setlocal nomodifiable
-    nnoremap <buffer><silent> q :pc<CR>
+    nnoremap <buffer><silent> q :bw!<CR>
 
     if g:dict_leave_pw
         noautocmd wincmd p
@@ -89,6 +90,7 @@ fun! s:dict_show_db()
     noautocmd wincmd P
     setlocal modifiable
     set buftype=nofile ff=dos
+    setlocal nobuflisted
 
     for host in g:dict_hosts
         silent! exe "normal! I--------------------------------------------------------------------------------\r"
@@ -104,7 +106,7 @@ fun! s:dict_show_db()
     silent! exe "0"
 
     setlocal nomodifiable
-    nnoremap <buffer><silent> q :pc<CR>
+    nnoremap <buffer><silent> q :bw!<CR>
 
     if g:dict_leave_pw
         noautocmd wincmd p
