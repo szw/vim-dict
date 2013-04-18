@@ -13,6 +13,8 @@ Place in *~/.vim/plugin/dict.vim* or in case of Pathogen:
     cd ~/.vim/bundle
     git clone https://github.com/szw/vim-dict.git
 
+Please, don't forget to star the repository if you like (and use) the plugin. This will let me know
+how many users it has and then how to proceed with further development :).
 
 Usage
 -----
