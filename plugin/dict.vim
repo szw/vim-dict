@@ -76,6 +76,7 @@ fun! s:dict(word)
     endif
 
     setlocal nomodifiable
+    setlocal nofoldenable
     nnoremap <buffer><silent> q :bw!<CR>
 
     if g:dict_leave_pw
@@ -106,6 +107,7 @@ fun! s:dict_show_db()
     silent! exe "0"
 
     setlocal nomodifiable
+    setlocal nofoldenable
     nnoremap <buffer><silent> q :bw!<CR>
 
     if g:dict_leave_pw
