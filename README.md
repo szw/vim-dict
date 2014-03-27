@@ -73,6 +73,10 @@ There are just a few global variables (options) you may set in the *.vimrc* file
   The list of DICT servers can be found on the Internet, e.g.
   [here](http://luetzschena-stahmeln.de/dictd/index.php).
 
+  If you have a local server with a dict deamon, you can use:
+
+		let g:dict_hosts = [["localhost", ["*"]]]
+
 * `g:dict_leave_pw`
 
   If set to `1` **vim-dict** leaves the preview window (the focus remains on the current window). By default
