@@ -114,3 +114,13 @@ fun! s:dict_show_db()
         noautocmd wincmd p
     endif
 endfun
+
+function s:Translate()
+    let inslovo = inputdialog('Enter the word to find: ')
+    execute "Dict " . inslovo
+endfunction
+
+" Define new commands
+command Translate    call s:Translate()
+
+nnoremap <silent> <script> <leader>p :call <SID>Translate()<CR>
