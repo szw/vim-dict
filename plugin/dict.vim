@@ -77,7 +77,7 @@ fun! s:dict(word)
 
     setlocal nomodifiable
     setlocal nofoldenable
-    nnoremap <buffer><silent> q :bw!<CR>
+    nnoremap <buffer><silent> gq :bw!<CR>
 
     if g:dict_leave_pw
         noautocmd wincmd p
@@ -108,7 +108,7 @@ fun! s:dict_show_db()
 
     setlocal nomodifiable
     setlocal nofoldenable
-    nnoremap <buffer><silent> q :bw!<CR>
+    nnoremap <buffer><silent> gq :bw!<CR>
 
     if g:dict_leave_pw
         noautocmd wincmd p
