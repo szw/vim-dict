@@ -77,7 +77,7 @@ fun! s:dict(word)
 
     setlocal nomodifiable
     setlocal nofoldenable
-    nnoremap <buffer><silent> q :bw!<CR>
+    nnoremap <buffer><silent> gq :bw!<CR>
 
     if g:dict_leave_pw
         noautocmd wincmd p
@@ -108,9 +108,19 @@ fun! s:dict_show_db()
 
     setlocal nomodifiable
     setlocal nofoldenable
-    nnoremap <buffer><silent> q :bw!<CR>
+    nnoremap <buffer><silent> gq :bw!<CR>
 
     if g:dict_leave_pw
         noautocmd wincmd p
     endif
 endfun
+
+function! s:Translate()
+    let inslovo = inputdialog('Enter the word to find: ')
+    execute "Dict " . inslovo
+endfunction
+
+" Define new commands
+command! Translate    call s:Translate()
+
+nnoremap <silent> <script> <leader>p :call <SID>Translate()<CR>
